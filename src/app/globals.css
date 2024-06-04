@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  
+   /* Your default theme */
+   --background: white;
+   --foreground: black;
+}
+
+.dark {
+ @apply bg-dark
+}
+.svg{
+  fill: #2b2b2b
+}
+.dark .svg {
+  fill: white;
+}
+
+.imageContainer img:hover{
+  transform:scale(1.05);
+  transition:.1s ease-in;
+  vertical-align: middle;
+}
+.box-shadow:hover{
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.05);
+}
