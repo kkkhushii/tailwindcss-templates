@@ -12,7 +12,7 @@ export const paginate = (items: any, pageNumber: number, pageSize: number) => {
   return items?.slice(0, startIndex + pageSize); // 0, 9
 };
 const Productpage = () => {
-  const { products, paramCase, loading, filteredProducts } = useProductContext();
+  const { paramCase, loading, filteredProducts } = useProductContext();
   const [page, setPage] = useState(1);
   const pageSize = 30;
   const handelInfiniteScroll = async () => {
@@ -60,7 +60,6 @@ const Productpage = () => {
                       )}
                     </div>
                   </div>
-
                   <div className="flex items-center justify-between gap-3 py-3">
                     <div className="w-[70%] no-wrap truncate">
                       <h3 className="text-sm font-semibold truncate ">

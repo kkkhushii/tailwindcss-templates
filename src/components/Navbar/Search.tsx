@@ -25,8 +25,7 @@ const Search = (): JSX.Element => {
 
   const filteredData = products.filter(
     (item: ProductType) =>
-      (item.templateName || '').toLowerCase().includes(searchTerm.toLowerCase()) &&
-      ["NextJs", "React"].includes(item.category || '')
+      (item.templateName || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -92,6 +91,7 @@ const Search = (): JSX.Element => {
           )}
         </div>
       )}
+
     </>
   );
 };

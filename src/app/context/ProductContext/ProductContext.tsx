@@ -14,7 +14,6 @@ export interface ProductType {
   popularity?: number;
   createdOn?: string;
   appType?: string;
-
 }
 
 // Define the type for your context
@@ -38,13 +37,12 @@ const config = {
 };
 // eslint-disable-next-line react/prop-types
 export const ProductContextProvider = ({ children }: any) => {
-  const [products, setProducts] = useState<any>([]);
-  const [allProducts, setAllProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState("popularity");
-  const [selectedType, setSelectedType] = useState("all");
-  const [filteredProducts, setFilteredProducts] = useState<any>([]);
+  const [products, setProducts] = useState<any>(config.products);
+  const [searchTerm, setSearchTerm] = useState(config.searchTerm);
+  const [loading, setLoading] = useState(config.loading);
+  const [sortBy, setSortBy] = useState(config.sortBy);
+  const [selectedType, setSelectedType] = useState(config.selectedType);
+  const [filteredProducts, setFilteredProducts] = useState<any>(config.filteredProducts);
 
   // Fetch Products data from the API
   useEffect(() => {
@@ -65,36 +63,21 @@ export const ProductContextProvider = ({ children }: any) => {
     let filtered = products.filter((product: ProductType) =>
       selectedType === "all" ? true : product.appType === selectedType
     );
-    if (sortBy === "free") {
-      filtered = filtered.filter((product: ProductType) => product.price === 0);
-    } else if (sortBy === "paid") {
-      filtered = filtered.filter((product: ProductType) => product.price !== 0);
-    } else if (sortBy === "popularity") {
-      // Filter products within the popularity range of 101 to 399
-      let popularityFiltered = filtered.filter((product: ProductType) =>
-        product.popularity && product.popularity >= 101 && product.popularity <= 399
+    // Filter by price if sortBy is "free" or "paid"
+    if (sortBy === "free" || sortBy === "paid") {
+      filtered = filtered.filter((product: ProductType) =>
+        sortBy === "free" ? product.price === 0 : product.price !== 0
       );
-
-      // Sort by exact popularity in ascending order (101, 102, ..., 399)
-      popularityFiltered = popularityFiltered.sort((a: ProductType, b: ProductType) =>
+    }
+    // Apply sorting based on sortBy value
+    if (sortBy === "popularity") {
+      // Sort by popularity in ascending order
+      filtered.sort((a: ProductType, b: ProductType) =>
         (a.popularity || 0) - (b.popularity || 0)
       );
-
-      // Get the remaining products that are not in the 101-399 popularity range
-      let otherProducts = filtered.filter((product: ProductType) =>
-        !product.popularity || product.popularity < 101 || product.popularity > 399
-      );
-
-      // Sort the remaining products by popularity in ascending order
-      otherProducts = otherProducts.sort((a: ProductType, b: ProductType) =>
-        (a.popularity || 0) - (b.popularity || 0)
-      );
-
-      // Combine the sorted popularityFiltered products with the rest
-      filtered = [...popularityFiltered, ...otherProducts];
     } else if (sortBy === "newest") {
-      // Reverse the array to display the last data first
-      filtered = filtered.reverse();
+      // Reverse the array to display the latest data first
+      filtered.reverse();
     }
     setFilteredProducts(filtered);
   }, [products, selectedType, sortBy]);
