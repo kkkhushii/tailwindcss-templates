@@ -4,24 +4,18 @@ import { useProductContext } from "../../app/context/ProductContext/ProductConte
 const ProductFilter = () => {
 
   const { selectedType, sortBy, setSelectedType, setSortBy } = useProductContext();
-
-
   const handleTypeChange = (e) => {
     setSelectedType(e.target.value);
     setSortBy("all");
     setSortBy("popularity");
 
   };
-
   const handleSortChange = (e) => {
     setSortBy(e.target.value);
   };
-
-
   const handleSortByNewest = () => {
     setSortBy("newest");
   };
-
   const handleSortByPopularity = () => {
     setSortBy("popularity");
   };
@@ -54,9 +48,7 @@ const ProductFilter = () => {
               type="button"
               className={
                 "py-2 px-3 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs"
-
               }
-
             >
               Newest
             </button>
@@ -66,7 +58,6 @@ const ProductFilter = () => {
               className={
                 "py-2 px-3 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs "
               }
-
             >
               Popular
             </button>

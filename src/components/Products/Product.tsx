@@ -11,19 +11,13 @@ export const paginate = (items: any, pageNumber: number, pageSize: number) => {
   const startIndex = (pageNumber - 1) * pageSize;
   return items?.slice(0, startIndex + pageSize); // 0, 9
 };
-
 const Productpage = () => {
   const { products, paramCase, loading, filteredProducts } = useProductContext();
   const [page, setPage] = useState(1);
   const pageSize = 30;
-
   const handelInfiniteScroll = async () => {
     setPage((prev) => prev + 1);
   };
-
-
-
-
   const paginatedPosts = paginate(filteredProducts, page, pageSize);
   return (
     <>
@@ -107,5 +101,4 @@ const Productpage = () => {
     </>
   );
 };
-
 export default Productpage;
