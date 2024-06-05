@@ -71,16 +71,24 @@ export const ProductContextProvider = ({ children }: any) => {
       filtered = filtered.filter((product: ProductType) => product.price !== 0);
     } else if (sortBy === "popularity") {
       // Filter products within the popularity range of 101 to 399
-      let popularityFiltered = filtered.filter((product: ProductType) => product.popularity >= 101 && product.popularity <= 399);
+      let popularityFiltered = filtered.filter((product: ProductType) =>
+        product.popularity && product.popularity >= 101 && product.popularity <= 399
+      );
 
       // Sort by exact popularity in ascending order (101, 102, ..., 399)
-      popularityFiltered = popularityFiltered.sort((a: ProductType, b: ProductType) => a.popularity - b.popularity);
+      popularityFiltered = popularityFiltered.sort((a: ProductType, b: ProductType) =>
+        (a.popularity || 0) - (b.popularity || 0)
+      );
 
       // Get the remaining products that are not in the 101-399 popularity range
-      let otherProducts = filtered.filter((product: ProductType) => product.popularity < 101 || product.popularity > 399);
+      let otherProducts = filtered.filter((product: ProductType) =>
+        !product.popularity || product.popularity < 101 || product.popularity > 399
+      );
 
       // Sort the remaining products by popularity in ascending order
-      otherProducts = otherProducts.sort((a: ProductType, b: ProductType) => a.popularity - b.popularity);
+      otherProducts = otherProducts.sort((a: ProductType, b: ProductType) =>
+        (a.popularity || 0) - (b.popularity || 0)
+      );
 
       // Combine the sorted popularityFiltered products with the rest
       filtered = [...popularityFiltered, ...otherProducts];
