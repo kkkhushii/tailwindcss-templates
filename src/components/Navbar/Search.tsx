@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useProductContext } from "../../app/context/ProductContext/ProductContext";
+import { ProductType, useProductContext } from "../../app/context/ProductContext/ProductContext";
 import Link from "next/link";
 
 const Search = (): JSX.Element => {
@@ -24,9 +24,9 @@ const Search = (): JSX.Element => {
   }, [searchBoxRef]);
 
   const filteredData = products.filter(
-    (item) =>
-      item.templateName.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      ["NextJs", "React"].includes(item.category)
+    (item: ProductType) =>
+      (item.templateName || '').toLowerCase().includes(searchTerm.toLowerCase()) &&
+      ["NextJs", "React"].includes(item.category || '')
   );
 
   return (
@@ -63,7 +63,7 @@ const Search = (): JSX.Element => {
             <div className="mx-auto ">
               <h2 className="font-semibold pt-2">Search Results</h2>
               <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                {filteredData.map((item) => (
+                {filteredData.map((item: ProductType) => (
                   <div key={item.id}>
                     <Link href={`/product/${paramCase(item.templateName)}`}>
                       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-50">

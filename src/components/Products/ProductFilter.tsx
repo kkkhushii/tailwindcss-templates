@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useProductContext } from "../../app/context/ProductContext/ProductContext";
 
 const ProductFilter = () => {
 
   const { selectedType, sortBy, setSelectedType, setSortBy } = useProductContext();
-  const handleTypeChange = (e) => {
+  const handleTypeChange = (e: { target: { value: any; }; }) => {
     setSelectedType(e.target.value);
     setSortBy("all");
     setSortBy("popularity");
 
   };
-  const handleSortChange = (e) => {
+  const handleSortChange = (e: { target: { value: any; }; }) => {
     setSortBy(e.target.value);
   };
   const handleSortByNewest = () => {
