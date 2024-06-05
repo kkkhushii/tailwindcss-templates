@@ -27,11 +27,14 @@ const ProductContext = createContext<any>(null);
 
 const config = {
   products: [],
-  searchProduct: "",
   selectedCategory: "All",
-  sortBy: "all",
+  sortBy: "popularity",
   loading: true,
   selectedProduct: null,
+  filteredProducts: [],
+  selectedType: "all",
+  searchTerm: "",
+
 };
 // eslint-disable-next-line react/prop-types
 export const ProductContextProvider = ({ children }: any) => {
@@ -39,10 +42,9 @@ export const ProductContextProvider = ({ children }: any) => {
   const [allProducts, setAllProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState("popular");
+  const [sortBy, setSortBy] = useState("popularity");
   const [selectedType, setSelectedType] = useState("all");
   const [filteredProducts, setFilteredProducts] = useState<any>([]);
-
 
   // Fetch Products data from the API
   useEffect(() => {
@@ -55,7 +57,6 @@ export const ProductContextProvider = ({ children }: any) => {
       const result = await res.json();
       setProducts(result);
     };
-
     fetchData();
   }, []);
 

@@ -46,18 +46,16 @@ const ProductFilter = () => {
             <button
               onClick={handleSortByNewest}
               type="button"
-              className={
-                "py-2 px-3 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs"
-              }
+              className={`py-2 px-3 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs ${sortBy === 'newest' ? 'bg-primary text-white' : null
+                }`}
             >
               Newest
             </button>
             <button
               onClick={handleSortByPopularity}
               type="button"
-              className={
-                "py-2 px-3 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs "
-              }
+              className={`py-2 px-3 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs ${sortBy === 'popularity' ? 'bg-primary text-white' : null
+                }`}
             >
               Popular
             </button>
